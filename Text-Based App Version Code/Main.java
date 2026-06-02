@@ -21,7 +21,7 @@ public class Main
         writer.print(AIString);
         writer.close();
     }
-    
+    //API Connection Created Using AI
     public static String getAIQuestions(String topic, int numberOfQuestions) throws IOException, InterruptedException {
         String apiKey = "AIzaSyDjcF3-9Fc3tXsDwGE9sZc9xr8n6lssKpI";
         String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
@@ -85,6 +85,8 @@ public class Main
     		        userInput.nextLine();
     		    }
 		    }
+
+			//AI Response filtering created with AI
 		    System.out.print("Topic: ");
 		    String topic = userInput.nextLine();
 		    String aiResponse = getAIQuestions(topic, questionAmount);
