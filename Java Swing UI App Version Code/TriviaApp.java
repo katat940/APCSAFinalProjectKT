@@ -18,6 +18,7 @@ public class TriviaApp extends JFrame {
     private final Color INPUT_BG = new Color(9, 40, 235);           
     // ----------------------------
 
+    //UI Created with AI
     public TriviaApp() {
         setTitle("AI Trivia Master - Swing Edition");
         setSize(450, 350); 
@@ -106,6 +107,7 @@ public class TriviaApp extends JFrame {
 
         statusArea.setText("Asking AI for questions...");
 
+        //AI USED FOR EXCEPTIONS AND GAME CREATION
         new Thread(() -> {
             try {
                 String aiData = fetchAIQuestions(topic, count);
@@ -150,6 +152,7 @@ public class TriviaApp extends JFrame {
         SwingUtilities.invokeLater(() -> statusArea.setText("Last Game: " + result));
     }
 
+    //API CONNECTION CREATED USING AI
     private String fetchAIQuestions(String topic, int num) throws Exception {
         String apiKey = "AIzaSyDjcF3-9Fc3tXsDwGE9sZc9xr8n6lssKpI"; 
         
