@@ -1,3 +1,4 @@
+//https://onlinegdb.com/VVSBp4zDQ
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -18,7 +19,7 @@ public class TriviaApp extends JFrame {
     private final Color INPUT_BG = new Color(9, 40, 235);           
     // ----------------------------
 
-    //UI Created with AI
+    //AI Used to translate from text-based to UI
     public TriviaApp() {
         setTitle("AI Trivia Master - Swing Edition");
         setSize(450, 350); 
@@ -107,7 +108,6 @@ public class TriviaApp extends JFrame {
 
         statusArea.setText("Asking AI for questions...");
 
-        //AI USED FOR EXCEPTIONS AND GAME CREATION
         new Thread(() -> {
             try {
                 String aiData = fetchAIQuestions(topic, count);
@@ -152,12 +152,13 @@ public class TriviaApp extends JFrame {
         SwingUtilities.invokeLater(() -> statusArea.setText("Last Game: " + result));
     }
 
-    //API CONNECTION CREATED USING AI
+    //AI Used for API Connection
     private String fetchAIQuestions(String topic, int num) throws Exception {
-        String apiKey = "AIzaSyDjcF3-9Fc3tXsDwGE9sZc9xr8n6lssKpI"; 
+        String apiKey = "AQ.Ab8RN6JIRbsy3XK-p_a-l3TAoNoB-STpU0trIuCRc2UNbjRvaQ"; 
         
         // FIXED URL: Using the correct stable endpoint mapping for the active flash model
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + apiKey;
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
+
         
         String prompt = "Generate exactly " + num + " trivia questions about " + topic + ". Output ONLY raw CSV format rows. " + 
                         "Do not include markdown tags, backticks, or any markdown wrappers. Do not include headers. Do not use commas inside content fields. " + 
@@ -176,7 +177,9 @@ public class TriviaApp extends JFrame {
         
         // Safety check for backend issues or invalid keys
         if (body.contains("\"error\"") || !body.contains("\"text\": \"")) {
-            throw new Exception("The AI-backend is overloaded. Please try again in 60 seconds.");
+            System.out.println("API Error: " + body);
+            throw new Exception("API Error: " + body);
+            
         }
         
         // FIXED INDEX LOOKUP: Sweeps backward from the end of the JSON body to find the true closing quote
@@ -196,6 +199,7 @@ public class TriviaApp extends JFrame {
                          .trim();
     }
 
+    //AI Used for FileWriter
     private void saveCSV(String data) throws IOException {
         PrintWriter pw = new PrintWriter(new File("AP CSA Final Project Question Object Creation - KT - Sheet1.csv"));
         pw.println("Question,A,B,C,D,Answer,Points");
