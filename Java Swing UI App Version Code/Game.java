@@ -23,13 +23,18 @@ public class Game {
 
         int j = 0;
         while (scanner.hasNextLine() && j < numQuestions) {
-            String row = scanner.nextLine();
+            String row = scanner.nextLine().trim();
             
-            if (row.startsWith("Question") || row.trim().isEmpty()){
+            // Skip headers, empty lines, or any trailing JSON metadata junk
+            //AI Used to filter through file
+            if (row.startsWith("Question") || row.isEmpty() || 
+                row.contains("{") || row.contains("}") || row.contains("\"role\"")) {
                 continue;
             }
             
             String[] values = row.split(",");
+            
+            // Only parse if it's a completely valid data row
             if (values.length >= 7) {
                 questionList[j].setQuestion(values[0]);
                 questionList[j].setA(values[1]);
@@ -37,9 +42,14 @@ public class Game {
                 questionList[j].setC(values[3]);
                 questionList[j].setD(values[4]);
                 questionList[j].setAnswer(values[5]);
-                questionList[j].setPoints(Integer.parseInt(values[6].trim()));
+                
+                try {
+                    questionList[j].setPoints(Integer.parseInt(values[6].trim()));
+                } catch (NumberFormatException e) {
+                    questionList[j].setPoints(100); // Safe fallback
+                }
+                j++; // Only move to the next question object if we successfully filled one!
             }
-            j++;
         }
         scanner.close();
     }
